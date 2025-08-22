@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Quote Generator</title>
+        <style>
+            body { font-family: Arial, sans-serif; text-align: center; padding: 24px; background:#f6f8fa; }
+            #quoteDisplay {margin: 20px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow:0 2px 8px rgba(0,0,0,.08); max-width: 700px ;}
+            .quote { font-size: 1.2rem; margin: 0 0 6px; }
+            .category { color: #555; margin:0; font-size:.95rem; }
+            .controls, .add-wrapper { margin-top: 16px; }
+            input { padding: 8px 10px; border:1px solid #ccc; border-radius:6px margin: 4px; width:260px; max-width: 90%; }
+            button { padding: 9px 14px; border:0; border-radius:6px; background:#007bff; color:#fff; cursor:pointer; }
+            button:hover { background:#005ed1; }
+        </style>
+    </head>
+    <body>
+        <h1>Dynamic Quote Generator</h1>
+
+        <div id="quoteDisplay"></div>
+
+        <div class="controls">
+            <button id="newQuote">Show New Quote</button>
+        </div>
+
+        <!-- Simple form to add quotes (matches spec ids) -->
+         <div class="add-wrapper">
+            <input id="newQuoteText" type="text" placeholder="Enter a new quote">
+            <input id="newQuoteCategory" type="text" placeholder="Enter quote category">
+            <button onclick="addQuote()">Add Quote</button>
+         </div>
+
+         <script src="script.js"></script>
+    </body>
+</html>
