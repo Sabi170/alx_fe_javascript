@@ -1,35 +1,59 @@
 body {
-    font-family: sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
     color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
-
+.container {
+    max-width: 600px;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 h1, h2 {
+    text-align: center;
     color: #0056b3;
 }
-
-#quoteDisplay {
-    background-color: #fff;
-    border-left: 5px solid #0056b3;
-    margin: 20px 0;
+#syncStatus {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    display: none; /* Hidden by default */
+}
+.quote-box {
+    background: #e9ecef;
+    border-left: 5px solid #007bff;
     padding: 15px;
+    margin: 20px 0;
+    font-size: 1.1em;
     font-style: italic;
 }
-button {
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+.controls, .form-section, .manage-section {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
 }
-button:hover {
-    background-color: #004494;
-}
-
-input[type="text"] {
+input[type="text"], select, button {
     padding: 10px;
-    margin-right: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 16px;
 }
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+button:hover { background-color: #0056b3; }
+#importButton { background-color: #28a745; }
+#importButton:hover { background-color: #218838; }
+#exportButton { background-color: #ffc107; color: #212529; }
+#exportButton:hover { background-color: #e0a800; }
