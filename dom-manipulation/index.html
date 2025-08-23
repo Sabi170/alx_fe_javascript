@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Quote Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 24px; background:#f6f8fa; }
-    #quoteDisplay { margin: 20px auto; padding: 20px; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.08); max-width:700px; }
-    .quote { font-size: 1.2rem; margin: 0 0 6px; }
-    .category { color:#555; margin:0; font-size:.95rem; }
-    .controls, .storage-controls { margin-top: 16px; }
-    input { padding: 8px 10px; border:1px solid #ccc; border-radius:6px; margin:4px; width: 260px; max-width: 90%; }
-    button { padding: 9px 14px; border:0; border-radius:6px; background:#007bff; color:#fff; cursor:pointer; }
-    button:hover { background:#005ed1; }
-  </style>
-</head>
-<body>
-  <h1>Dynamic Quote Generator</h1>
+<hetml lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device, initial-scale=1.0">
+        <title>Dynamic Quote Generator</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>Dynamic Quote Generator</h1>
 
-  <!-- Required placeholder for dynamic content -->
-  <div id="quoteDisplay"></div>
+        <select id="categoryFilter" onchange="filterQuotes()">
+            <option value="all">All Catergories</option>
+            <!-- Categories will be populated here by JavaScript-->
+        </select>
+        
+        <div id="quoteDisplay">
+            <p>Click the button to see a random quote</p>
+        </div>
+        <button id="newQuote">Show New Quote</button>
 
-  <!-- Show random quote -->
-  <div class="controls">
-    <button id="newQuote">Show New Quote</button>
-  </div>
+        <hr>
 
-  <!-- Placeholder where the form is created dynamically -->
-  <div id="addQuoteForm" class="controls"></div>
+        <h2>Add a New Quote</h2>
+        <div id="addQuoteForm">
+            <input id="newQuoteText" type="text" placeholder="Enter a new quote">
+            <input id="newQuoteCategory" type="text" placeholder="Enter a new category">
+            <button onclick="addQuote()">Add Quote</button>
+        </div>
 
-  <!-- Import / Export -->
-  <div class="storage-controls">
-    <button onclick="exportToJsonFile()">Export Quotes (JSON)</button>
-    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
-  </div>
+        <hr>
 
-  <script src="script.js"></script>
-</body>
-</html>
+        <h2>Manage Your Quotes</h2>
+        <button onclick="exportToJsonFile()">Export Quotes</button>
+        <input type="file" id="ImportFile" accept=".json" onchange="importFromJsonFile(event)" />
+
+
+        <script src="script.js"></script>
+    </body>
+</hetml>
