@@ -176,80 +176,64 @@ newQuoteButton.addEventListener('click', showRandomQuote);
 const serverUrl = 'https://jsonplaceholder.typicode.com/posts';
 
 // Function to fetch quotes from the server
-async function fetchQuotesFromServer() {
+async function syncQuotes() {
     try {
+        updateSyncStatus('Syncing with server...');
         const response = await fetch(serverUrl);
-        const serverQuotes = await response.json();
-
-        // Simple conflict resolution: server data takes precedence
-        // A more robust solution would involve timestamps or versioning
-        const serverQuotesFormatted = serverQuotes.map(post => ({
-            text: post.title, // Using 'title' as quote text
-            category: 'Server' // Assiging a default category
+        const serverData = await response.json();
+        const serverQuotes = serverData.slice(0, 10).map(post => ({
+            text: post.title,
+            category: 'Server'
         }));
+    
+        let newQuotesAdded = 0;
+        serverQuotes.forEach(serverQuote => {
+            if (!quotes.some(localQuote => localQuote.text === serverQuote.text)) {
+                quotes.push(serverQuote);
+                newQuotesAdded++;
+            }
+        });
 
-        // Basic merging strategy
-        const localTexts = new Set(quotes.map(q => q.text));
-        const newQuotes = serverQuotesFormatted.filter(sq => !localTexts.has(sq.text));
-
-        if (newQuotes.length > 0) {
-            quotes.push(...newQuotes);
+        if (newQuotesAdded > 0) {
             saveQuotes();
             populateCategories();
-            alert(`${newQuotes.length} new quotes have been synced from the server.`);
+            updateSyncStatus(`${newQuotesAdded} new quotes synced from the server.`, true);
+        } else {
+            updateSyncStatus('Your quotes are up to date.', true);
         }
     } catch (error) {
-        console.error('Error fetching quotes from server:', error);
+        console.error('Error fetching quotes form server:', error);
+        updateSyncStatus('Failed to sync with server.', false);
     }
 }
 
-// Function to post a new quote to the server
 async function postQuoteToServer(quote) {
     try {
-        const response = await fetch(serverUrl, {
+        await fetch(serverUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title: quote.text,
-                body: quote.category,
-                userId: 1 // Mock user ID
-            }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: quote.text, body: quote.category, userId: 1 }),
         });
-        const result = await response.json();
-        console.log('Quote posted to server:', result);
+        console.log('Quote posted to server:', quote);
     } catch (error) {
         console.error('Error posting quote to server:', error);
     }
 }
 
-// Update addQuote to also post to the server
-function addQuote() {
-    const text = newQuoteText.value.trim();
-    const category = newQuoteCategory.value.trim();
-    const newQuote = { text, category };
+function updateSyncStatus(message, isSuccess = true) {
+    if (syncStatus) {
+        syncStatus.textContent = message;
+        syncStatus.style.display = 'block';
 
-    if (text && category) {
-        quotes.push(newQuote);
-        saveQuotes();
-        populateCategories();
-        postQuoteToServer(newQuote);
-        newQuoteText.value = '';
-        newQuoteCategory.value = '';
-        alert('New quote added and sent to server!');
-    } else {
-        alert('Please enter both a quote and a category.');
+        syncStatus.style.backgroundColor = isSuccess ? 'green' : 'red';
+        syncStatus.style.color = 'white';
+        syncStatus.style.padding = '10px';
+        syncStatus.style.textAlign = 'center';
+
+        setTimeout(() => {
+            syncStatus.style.display = 'none';
+        }, 3000);
     }
 }
 
-// Periodically sync with the server
-setInterval(fetchQuotesFromServer, 60000); // Sycn every 60 seconds
-
-// Initial load
-document.addEventListener('DOMContentLoaded', () => {
-    loadQuotes();
-    populateCategories();
-    filterQuotes();
-    fetchQuotesFromServer(); // Initial sync
-});
+newQuoteButton.addEventListener('click', filterQuotes);
