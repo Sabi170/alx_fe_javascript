@@ -254,3 +254,28 @@ document.addEventListener('DOMContentLoaded', () => {
     filterQuotes();
     fetchQuotesFromServer(); // Initial sync
 });
+
+function updateSyncStatus(message, isSuccess = true) {
+    if (syncStatus) {
+        synStatus.textContent = message;
+        syncStatus.style.display = 'block';
+        syncStatus.style.backgroundColor = isSuccess ? 'green' : 'red';
+        syncStatus.style.color = 'white';
+        syncStatus.style.padding = '10px';
+        syncStatus.style.textAlign = 'center';
+        setTimeout(() => {
+            syncStatus.style.display = 'none';
+        }, 3000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuotes();
+    populateCategories();
+    filterQuotes();
+
+    syncQuotes();
+    setInterval(syncQuotes, 60000);
+});
+
+newQuoteButton.addEventListener('click, filterQuotes');
