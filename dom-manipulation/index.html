@@ -1,46 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Quote Generator</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
+<hetml lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device, initial-scale=1.0">
+        <title>Dynamic Quote Generator</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
         <h1>Dynamic Quote Generator</h1>
-        <!-- This div is for server sync notifications -->
+
+        <select id="categoryFilter" onchange="filterQuotes()">
+            <option value="all">All Catergories</option>
+            <!-- Categories will be populated here by JavaScript-->
+        </select>
         <div id="syncStatus"></div>
+        <div id="quoteDisplay">
+            <p>Click the button to see a random quote</p>
+        </div>
+        <button id="newQuote">Show New Quote</button>
 
-        <!-- Quote Display Area -->
-        <div class="quote-box">
-            <div id="quoteDisplay"><p>Welcome! Click the button to see a quote.</p></div>
-            <div class="controls">
-                <select id="categoryFilter" onchange="filterQuotes()">
-                    <option value="all">All Categories</option>
-                </select>
-                <button id="newQuoteButton">Show New Quote</button>
-            </div>
+        <hr>
+
+        <h2>Add a New Quote</h2>
+        <div id="addQuoteForm">
+            <input id="newQuoteText" type="text" placeholder="Enter a new quote">
+            <input id="newQuoteCategory" type="text" placeholder="Enter a new category">
+            <button onclick="addQuote()">Add Quote</button>
         </div>
 
-        <!-- Add New Quote Form -->
-        <div class="form-section">
-            <h2>Add a New Quote</h2>
-            <input id="newQuoteText" type="text" placeholder="Enter the quote text" />
-            <input id="newQuoteCategory" type="text" placeholder="Enter the category" />
-            <button id="addQuoteButton">Add Quote</button>
-        </div>
-        
-        <!-- Import / Export Area -->
-        <div class="manage-section">
-             <h2>Manage Your Quotes</h2>
-             <button id="exportButton">Export to JSON</button>
-             <input type="file" id="importFile" accept=".json" style="display: none;">
-             <button id="importButton">Import from JSON</button>
-        </div>
-    </div>
+        <hr>
 
-    <!-- The script MUST be at the end of the body -->
-    <script src="script.js"></script>
-</body>
-</html>
+        <h2>Manage Your Quotes</h2>
+        <button onclick="exportToJsonFile()">Export Quotes</button>
+        <input type="file" id="ImportFile" accept=".json" onchange="importFromJsonFile(event)" />
+
+
+        <script src="script.js"></script>
+    </body>
+</hetml>
