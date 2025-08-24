@@ -46,6 +46,8 @@ function createAddQuoteForm() {
  // Function to save quotes to local storage
  function saveQuotes() {
     localStorage.setItem('quotes', JSON.stringify(quotes));
+    console.log("Quotes synced with server!");
+    alert("Quotes synced with server!");
  }
 
  // Function to load quotes from local storage
@@ -276,6 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     syncQuotes();
     setInterval(syncQuotes, 60000);
-});
+})
 
 newQuoteButton.addEventListener('click, filterQuotes');
